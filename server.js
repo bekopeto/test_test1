@@ -12,6 +12,7 @@ var events = require('events');
 var event = new events.EventEmitter();
 
 var mainDb = mongoose.createConnection('localhost', 'mainDB');
+//var mainDb = mongoose.createConnection('localhost', 'CRM');
 
 mainDb.on('error', console.error.bind(console, 'connection error:'));
 mainDb.once('open', function callback() {
@@ -65,7 +66,9 @@ var allowCrossDomain = function (req, res, next) {
     var allowedHost = [
         '185.2.100.192:8088',
         'localhost:8088',
-        '192.168.88.13:8088'
+        '192.168.88.13:8088',
+        'easyerp-beko.c9.io:8088',
+        process.env.IP+':'+process.env.PORT
     ];
     var browser = req.headers['user-agent'];
     if (/Trident/.test(browser))
@@ -1327,7 +1330,10 @@ app.get('/:id', function (req, res) {
         res.send(500);
     }
 });
-app.listen(8088);
+/*app.listen(8088);*/
+app.listen(process.env.PORT);
+
+
 
 
 console.log("server start");
